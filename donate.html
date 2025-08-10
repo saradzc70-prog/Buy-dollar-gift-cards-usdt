@@ -1,73 +1,120 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شراء بطاقات هدايا وعملات رقمية</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        header {
-            background: #222;
-            color: #fff;
-            padding: 20px;
-            font-size: 1.5em;
-        }
-        .container {
-            max-width: 600px;
-            margin: 30px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        img {
-            max-width: 100px;
-            margin: 10px;
-        }
-        .btn {
-            display: inline-block;
-            background: #ff9800;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 1.2em;
-            margin-top: 20px;
-            transition: background 0.3s;
-        }
-        .btn:hover {
-            background: #e68900;
-        }
-        .qr {
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>شراء بطاقات هدايا / Buy Giftcards & Crypto</title>
+  <style>
+    :root{--accent:#ff9800;--bg:#f6f7f9;--card:#fff}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; background:var(--bg); margin:0; padding:20px; color:#111}
+    .wrap{max-width:900px;margin:18px auto;padding:20px;background:var(--card);border-radius:12px;box-shadow:0 6px 30px rgba(0,0,0,0.06);text-align:center}
+    header{display:flex;gap:12px;align-items:center;justify-content:space-between}
+    h1{margin:0;font-size:20px}
+    .lang{display:flex;gap:8px}
+    .btn{display:inline-block;margin:10px;padding:12px 20px;border-radius:8px;text-decoration:none;color:#fff;background:var(--accent);font-weight:600}
+    .secondary{background:#2b2b2b}
+    .logos img{max-height:48px;margin:6px}
+    .qr{margin-top:14px}
+    .note{font-size:13px;color:#444;margin-top:10px}
+    .row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+    .col{flex:1;min-width:250px}
+    footer{font-size:13px;color:#666;margin-top:18px}
+    /* language specific */
+    .en{display:none}
+    [lang="en"] .en{display:inline}
+    [lang="en"] .ar{display:none}
+  </style>
 </head>
-<body>
+<body lang="ar">
+  <div class="wrap">
     <header>
-        شراء بطاقات هدايا وعملات رقمية
+      <h1><span class="ar">شراء بطاقات هدايا و عملات رقمية</span><span class="en">Buy Gift Cards & Crypto</span></h1>
+      <div class="lang">
+        <button id="toAr" class="btn secondary" style="background:#444">العربية</button>
+        <button id="toEn" class="btn secondary" style="background:#444">English</button>
+      </div>
     </header>
-    <div class="container">
-        <p>ادفع بالبطاقة البنكية أو العملات الرقمية عبر رابط آمن.</p>
-        <div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Amazon_icon.svg" alt="Amazon">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Google_Play_Store_badge_AR.svg" alt="Google Play">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Steam_icon_logo.svg" alt="Steam">
-            <img src="https://cryptologos.cc/logos/tether-usdt-logo.svg?v=023" alt="USDT">
-            <img src="https://cryptologos.cc/logos/usd-coin-usdc-logo.svg?v=023" alt="USD Coin">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Euro_symbol_black.svg" alt="EUR" style="max-width:60px;">
-        </div>
-        <a class="btn" href="https://nowpayments.io/donation/Buydollargiftcards" target="_blank">ادفع الآن</a>
-        <div class="qr">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://nowpayments.io/donation/Buydollargiftcards" alt="QR Code">
-            <p>امسح الكود للدفع مباشرة</p>
-        </div>
+
+    <div class="logos" aria-hidden="true">
+      <!-- صور رمزية فقط -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Amazon_icon.svg" alt="Amazon">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Google_Play_Store_badge_AR.svg" alt="Google Play">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Steam_icon_logo.svg" alt="Steam">
+      <img src="https://cryptologos.cc/logos/tether-usdt-logo.svg?v=023" alt="USDT">
     </div>
+
+    <p class="note">
+      <span class="ar">ادفع بالبطاقة البنكية أو العملات الرقمية. اختر الزر المناسب أدناه.</span>
+      <span class="en">Pay with bank card (Visa/MasterCard) or crypto. Choose a button below.</span>
+    </p>
+
+    <div class="row">
+      <div class="col">
+        <!-- زر الدفع بالبطاقة: ضع رابط Stripe Payment Link مكان STRIPE_PAYMENT_LINK -->
+        <a id="cardPay" class="btn" href="STRIPE_PAYMENT_LINK" target="_blank" rel="noopener noreferrer">
+          <span class="ar">ادفع بالفيزا / ماستر كارد</span><span class="en">Pay with Visa / MasterCard</span>
+        </a>
+        <p class="note">
+          <span class="ar">(يستخدم رابط دفع آمن من Stripe Payment Link — إن لم تكن قد أنشأته بعد، اقرا التعليمات أسفل الصفحة)</span>
+          <span class="en">(Uses a secure Stripe Payment Link — see instructions below if you haven't created one)</span>
+        </p>
+      </div>
+
+      <div class="col">
+        <!-- زر NowPayments -->
+        <a id="cryptoPay" class="btn" href="https://nowpayments.io/donation/Buydollargiftcards" target="_blank" rel="noopener noreferrer" style="background:#0a84ff">
+          <span class="ar">ادفع بالعملات الرقمية / البطاقة</span><span class="en">Pay (Card or Crypto) via NowPayments</span>
+        </a>
+        <p class="note">
+          <span class="ar">This opens NowPayments حيث يمكنك الدفع بالبطاقة أو العملات الرقمية.</span>
+          <span class="en">Opens NowPayments where card & crypto payments are supported.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="qr">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://nowpayments.io/donation/Buydollargiftcards" alt="QR Code">
+      <p class="note"><span class="ar">امسح هذا الكود لفتح صفحة الدفع (NowPayments).</span><span class="en">Scan QR to open NowPayments payment page.</span></p>
+    </div>
+
+    <div style="text-align:left;margin-top:18px">
+      <details>
+        <summary><strong><span class="ar">تعليمات سريعة لإنشاء Stripe Payment Link</span><span class="en">Quick instructions to create a Stripe Payment Link</span></strong></summary>
+        <ol>
+          <li><span class="ar">سجل حساب في <a href="https://stripe.com" target="_blank">stripe.com</a> (إذا لم يكن لديك).</span><span class="en">Sign up on <a href="https://stripe.com" target="_blank">stripe.com</a> if needed.</span></li>
+          <li><span class="ar">من لوحة Stripe: Products → Add product → أضف منتج (مثلاً: \"Giftcard 10 USD\") → Save.</span><span class="en">In Stripe Dashboard: Products → Add product → create product (eg. "Giftcard 10 USD") → Save.</span></li>
+          <li><span class="ar">اذهب إلى Payment Links → Create payment link → اختر المنتج والسعر → Create link.</span><span class="en">Go to Payment Links → Create payment link → choose product & price → Create link.</span></li>
+          <li><span class="ar">انسخ الرابط الذي يظهر (سيشبه https://buy.stripe.com/...) وألصقه في مكان <code>STRIPE_PAYMENT_LINK</code> داخل هذا الملف ثم احفظ وادفع.</span><span class="en">Copy the generated URL (like https://buy.stripe.com/...) and paste it into <code>STRIPE_PAYMENT_LINK</code> in this file, save and deploy.</span></li>
+        </ol>
+      </details>
+    </div>
+
+    <footer>
+      <div class="ar">ملاحظة: لا تحفظ بيانات بطاقات الدفع بنفسك — استخدم روابط دفع آمنة (Stripe أو NowPayments).</div>
+      <div class="en">Note: Do not collect card details yourself — use secure payment links (Stripe / NowPayments).</div>
+    </footer>
+  </div>
+
+  <script>
+    // toggle language
+    const toAr = document.getElementById('toAr');
+    const toEn = document.getElementById('toEn');
+    function setLang(lang){
+      document.documentElement.lang = lang === 'ar' ? 'ar' : 'en';
+      document.body.lang = lang === 'ar' ? 'ar' : 'en';
+    }
+    toAr.onclick = ()=>setLang('ar');
+    toEn.onclick = ()=>setLang('en');
+
+    // if user forgets to set Stripe link, hide button and show warning
+    (function(){
+      const a = document.getElementById('cardPay');
+      if(a.href.includes('STRIPE_PAYMENT_LINK')){
+        a.style.opacity = '0.6';
+        a.title = 'ضع رابط Stripe Payment Link في الكود لاستعمال هذا الزر';
+        a.onclick = function(e){ e.preventDefault(); alert('لم يتم إعداد رابط دفع البطاقات بعد. قم بإنشاء Stripe Payment Link ثم استبدل STRIPE_PAYMENT_LINK في ملف index.html'); };
+      }
+    })();
+  </script>
 </body>
 </html>
